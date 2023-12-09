@@ -1,0 +1,52 @@
+<!-- products/list.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtered Product List</title>
+</head>
+<body>
+
+<h2>Filtered Product List</h2>
+
+<form method="get" th:action="@{/products/filtered}">
+    <label>Category:
+        <select name="categoryId">
+            <option value="">All Categories</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+    </label>
+    <br>
+
+    <label>Min Price: <input type="number" name="minPrice" /></label><br>
+    <label>Max Price: <input type="number" name="maxPrice" /></label><br>
+
+    <input type="submit" value="Filter">
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Photo</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.photo}"></td>
+        <td th:text="${product.category.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/products/new}">Add New Product</a>
+
+</body>
+</html>
